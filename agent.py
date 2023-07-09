@@ -49,10 +49,10 @@ def query_agent(agent, query):
             For the following query, if it requires drawing a table, reply as follows:
             {"table": {"columns": ["column1", "column2", ...], "data": [[value1, value2, ...], [value1, value2, ...], ...]}}
 
-            If the query requires creating a bar chart, reply as follows:
+            If the query requires creating a bar chart, reply as follows, all returned arrays must be of the same length:
             {"bar": {"columns": ["A", "B", "C", ...], "data": [25, 24, 10, ...]}}
             
-            If the query requires creating a line chart, reply as follows:
+            If the query requires creating a line chart, reply as follows, all returned arrays must be of the same length:
             {"line": {"columns": ["A", "B", "C", ...], "data": [25, 24, 10, ...]}}
             
             There can only be two types of chart, "bar" and "line".
