@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import json
 
 from agent import query_agent, create_agent
@@ -38,9 +39,7 @@ def write_response(response_dict: dict):
         df = pd.DataFrame(data)
         df.set_index("columns", inplace=True)
         st.bar_chart(df)
-        if st.button("Line Graph"):      
-            st.line_chart(df)
-
+    
     # Check if the response is a line chart.
     if "line" in response_dict:
         data = response_dict["line"]
@@ -62,23 +61,17 @@ st.write("Please upload your CSV file below.")
 data = st.file_uploader("Upload a CSV")
 
 query = st.text_area("Insert your query")
-
 if st.button("Submit Query", type="primary"):
     # Create an agent from the CSV file.
     agent = create_agent(data)
 
     # Query the agent.
     response = query_agent(agent=agent, query=query)
+
     json.dumps(response)
 
-    # log response
-    st.write(response)
     # Decode the response.
     decoded_response = decode_response(response)
 
-    st.write(decoded_response)
     # Write the response to the Streamlit app.
-    write_response(decoded_response)  
-    #
-st.button("")
-
+    write_response(decoded_response)
